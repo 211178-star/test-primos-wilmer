@@ -1,28 +1,28 @@
 function esPrimo(valor) {
-  if (valor < 2) return false;
+  if (valor <= 1) return false;
+  if (valor === 2) return true;
+  if (valor % 2 === 0) return false;
 
-  let esValido = true;
-  let divisor = 2;
-
-  while (divisor < valor && esValido) {
-    if (valor % divisor === 0) {
-      esValido = false;
-    }
-    divisor++;
+  for (let divisor = 3; divisor <= Math.sqrt(valor); divisor += 2) {
+    if (valor % divisor === 0) return false;
   }
-
-  return esValido;
+  return true;
 }
 
-function contarPrimos(limite) {
-  return Array.from({ length: limite + 1 }, (_, i) => i)
-    .filter(n => esPrimo(n))
-    .length;
+function contarPrimos(limiteMax) {
+  let total = 0;
+  for (let numero = 2; numero <= limiteMax; numero++) {
+    if (esPrimo(numero)) total++;
+  }
+  return total;
 }
 
-function listarPrimos(limite) {
-  return Array.from({ length: limite + 1 }, (_, i) => i)
-    .filter(n => esPrimo(n));
+function listarPrimos(limiteMax) {
+  const resultado = [];
+  for (let numero = 2; numero <= limiteMax; numero++) {
+    if (esPrimo(numero)) resultado.push(numero);
+  }
+  return resultado;
 }
 
 module.exports = {
